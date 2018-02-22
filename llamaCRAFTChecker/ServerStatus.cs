@@ -17,6 +17,7 @@ namespace llamaCRAFTChecker
         private string _currentPlayers = "Unknown";
         private string _maximumPlayers = "Unknown";
         private DateTime _lastChecked = DateTime.Now;
+        private int _numberOfChecks = 0;
 
         public String Text
         {
@@ -78,12 +79,27 @@ namespace llamaCRAFTChecker
             }
         }
 
+        public String CurrentMax
+        {
+            get { return this._currentPlayers + '/' + this._maximumPlayers; }
+        }
+
         public DateTime LastChecked
         {
             get { return this._lastChecked; }
             set
             {
                 this._lastChecked = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int NumberOfChecks
+        {
+            get { return this._numberOfChecks; }
+            set
+            {
+                this._numberOfChecks = value;
                 NotifyPropertyChanged();
             }
         }

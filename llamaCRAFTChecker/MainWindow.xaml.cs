@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace llamaCRAFTChecker
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         const ushort dataSize = 512;
@@ -38,6 +35,11 @@ namespace llamaCRAFTChecker
             this.DataContext = StatusObject;
         }
 
+        /**
+         * @TODO : Move this into a dedicated helper
+         * class because it's a tad chunky and shouldn't really
+         * be stored in the same class as the presentation logic.
+         */
         public void GetServerStatus()
         {
             var rawServerData = new byte[dataSize];
@@ -47,17 +49,38 @@ namespace llamaCRAFTChecker
 
             try
             {
+                /**
+                 * Start a stopwatch to track the number
+                 * of milliseconds taken to query the server
+                 * status, Currently only stored in local vars.
+                 */
                 stopwatch.Start();
                 tcpClient.Connect(hostName, port);
                 stopwatch.Stop();
 
                 NetworkStream stream = tcpClient.GetStream();
 
+                /**
+                 * Process the payload we got back from the server
+                 */
                 var payload = new byte[] { 0xFE, 0x01 };
                 stream.Write(payload, 0, payload.Length);
                 stream.Read(rawServerData, 0, dataSize);
 
                 tcpClient.Close();
+
+                /**
+                 * Bump the number of checks by 1
+                 * and set the last checked datetime to now
+                 */
+                this.StatusObject.NumberOfChecks += 1;
+                this.StatusObject.LastChecked = DateTime.Now;
+
+                /**
+                 * Store the number of milliseconds it took to
+                 * run the check, Could this potentially be used
+                 * to calculate latency?
+                 */
                 long Delay = stopwatch.ElapsedMilliseconds;
             }
             catch(Exception)
@@ -88,6 +111,15 @@ namespace llamaCRAFTChecker
                     this.StatusObject.Up = false;
                 }
             }
+        }
+
+        /**
+         * When the "Check Again" button is clicked
+         * re-query the server status
+         */
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GetServerStatus();
         }
     }
 }

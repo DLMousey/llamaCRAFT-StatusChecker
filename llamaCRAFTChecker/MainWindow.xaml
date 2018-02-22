@@ -11,7 +11,7 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.25*" />
@@ -19,32 +19,56 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical">
-            <DockPanel>
-                <Label>Server Status:</Label>
-                <Label FontWeight="Black" Content="{Binding Path=Text, Mode=OneWay}" x:Name="StatusIndicator">
-                    <Label.Style>
-                        <Style>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=Text}" Value="Up!">
-                                    <Setter Property="TextBlock.Foreground" Value="Green" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Text}" Value="Down!">
-                                    <Setter Property="TextBlock.Foreground" Value="Red" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>
-            </DockPanel>
-            <DockPanel>
-                <Label>Last Checked:</Label>
-                <Label Content="{Binding Path=LastChecked, Mode=OneWay}" x:Name="LastCheckedIndicator" />
-            </DockPanel>
-            <DockPanel>
-                <Label>MOTD:</Label>
-                <TextBox IsEnabled="False" Text="{Binding Path=Motd, Mode=OneWay}" x:Name="MotdIndicator" />
-            </DockPanel>
-        </StackPanel>
+        <DockPanel Grid.Column="1" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="115">Server Status:</Label>
+                    <Label FontWeight="Black" Content="{Binding Path=Text, Mode=OneWay}" x:Name="StatusIndicator">
+                        <Label.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Text}" Value="Up!">
+                                        <Setter Property="TextBlock.Foreground" Value="Green" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Text}" Value="Down!">
+                                        <Setter Property="TextBlock.Foreground" Value="Red" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="115">MOTD:</Label>
+                    <Label Content="{Binding Path=Motd, Mode=OneWay}" x:Name="MotdIndicator" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="115">Players:</Label>
+                    <Label Content="{Binding Path=CurrentMax, Mode=OneWay}" />
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem HorizontalAlignment="Left">
+                    <TextBlock x:Name="LastCheckedIndicator" HorizontalAlignment="Left">
+                        <Run Text="Last Checked: " />
+                        <Run Text="{Binding Path=LastChecked, Mode=OneWay}" />
+                    </TextBlock>
+                </StatusBarItem>
+                <Separator></Separator>
+                <StatusBarItem>
+                    <TextBlock x:Name="NumbeOfChecksIndicator" HorizontalAlignment="Left">
+                        <Run Text="Number Of Checks: " />
+                        <Run Text="{Binding Path=NumberOfChecks, Mode=OneWay}" />
+                    </TextBlock>
+                </StatusBarItem>
+                <Separator></Separator>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <Button Click="Button_Click" HorizontalAlignment="Right">Check Again</Button>
+                </StatusBarItem>
+            </StatusBar>
+        </DockPanel>
     </Grid>
 </Window>
