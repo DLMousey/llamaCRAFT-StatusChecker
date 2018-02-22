@@ -11,17 +11,13 @@ namespace llamaCRAFTChecker
     public class ServerStatus : INotifyPropertyChanged
     {
         private string _text = "Unknown";
-        public event PropertyChangedEventHandler PropertyChanged;
+        public Boolean _up = false;
+        private string _version = "Unknown";
+        private string _motd = "Unknown";
+        private string _currentPlayers = "Unknown";
+        private string _maximumPlayers = "Unknown";
+        private DateTime _lastChecked = DateTime.Now;
 
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        public Boolean Up { get; set; } = false;
         public String Text
         {
             get { return this._text; }
@@ -32,9 +28,74 @@ namespace llamaCRAFTChecker
             }
         }
 
-        public String Version { get; set; } = "Unknown";
-        public String Motd { get; set; } = "Unknown";
-        public String CurrentPlayers { get; set; } = "Unknown";
-        public String MaximumPlayers { get; set; } = "Unknown";
+        public Boolean Up
+        {
+            get { return this._up; }
+            set
+            {
+                this._up = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String Version
+        {
+            get { return this._version; }
+            set
+            {
+                this._version = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String Motd
+        {
+            get { return this._motd; }
+            set
+            {
+                this._motd = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String CurrentPlayers
+        {
+            get { return this._currentPlayers; }
+            set
+            {
+                this._currentPlayers = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public String MaximumPlayers
+        {
+            get { return this._maximumPlayers; }
+            set
+            {
+                this._maximumPlayers = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public DateTime LastChecked
+        {
+            get { return this._lastChecked; }
+            set
+            {
+                this._lastChecked = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if(PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

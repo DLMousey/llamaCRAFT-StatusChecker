@@ -21,7 +21,7 @@
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical">
             <DockPanel>
-                <Label Width="100">Server Status:</Label>
+                <Label>Server Status:</Label>
                 <Label FontWeight="Black" Content="{Binding Path=Text, Mode=OneWay}" x:Name="StatusIndicator">
                     <Label.Style>
                         <Style>
@@ -38,10 +38,13 @@
                 </Label>
             </DockPanel>
             <DockPanel>
-                <Label Width="100">MOTD:</Label>
+                <Label>Last Checked:</Label>
+                <Label Content="{Binding Path=LastChecked, Mode=OneWay}" x:Name="LastCheckedIndicator" />
+            </DockPanel>
+            <DockPanel>
+                <Label>MOTD:</Label>
                 <TextBox IsEnabled="False" Text="{Binding Path=Motd, Mode=OneWay}" x:Name="MotdIndicator" />
             </DockPanel>
-
         </StackPanel>
     </Grid>
 </Window>
