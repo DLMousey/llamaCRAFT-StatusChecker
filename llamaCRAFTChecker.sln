@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "llamaCRAFTChecker", "llamaCRAFTChecker\llamaCRAFTChecker.csproj", "{D98BFA52-25D0-4504-98CE-5D9B94D3E3F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D98BFA52-25D0-4504-98CE-5D9B94D3E3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98BFA52-25D0-4504-98CE-5D9B94D3E3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98BFA52-25D0-4504-98CE-5D9B94D3E3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98BFA52-25D0-4504-98CE-5D9B94D3E3F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52A144DF-7D2D-4F58-BE7B-BE8056CBDEDB}
+	EndGlobalSection
+EndGlobal
