@@ -47,6 +47,8 @@
                     <Label Width="115">Players:</Label>
                     <Label Content="{Binding Path=CurrentMax, Mode=OneWay}" />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                </StackPanel>
             </StackPanel>
         </DockPanel>
         <DockPanel Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
@@ -65,8 +67,11 @@
                     </TextBlock>
                 </StatusBarItem>
                 <Separator></Separator>
-                <StatusBarItem HorizontalAlignment="Right">
-                    <Button Click="Button_Click" HorizontalAlignment="Right">Check Again</Button>
+                <StatusBarItem HorizontalAlignment="Stretch">
+                    <Button Click="Button_Click" HorizontalAlignment="Stretch">Check Again</Button>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Stretch">
+                    <Button x:Name="FolderPicker" Click="FolderPicker_Click" HorizontalAlignment="Stretch">Sync Mods</Button>
                 </StatusBarItem>
             </StatusBar>
         </DockPanel>

@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using System.IO;
 
 namespace llamaCRAFTChecker
 {
@@ -23,6 +25,7 @@ namespace llamaCRAFTChecker
         const ushort numFields = 6;
 
         protected String hostName = "llamatrain.llamatorials.com";
+        public String ModsPath;
         protected int port = 25565;
 
         public ServerStatus StatusObject = new ServerStatus();
@@ -120,6 +123,30 @@ namespace llamaCRAFTChecker
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             GetServerStatus();
+        }
+
+        private void FolderPicker_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            folderDialog.ShowNewFolderButton = false;
+            folderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
+            DialogResult result = folderDialog.ShowDialog();
+
+            if(result == System.Windows.Forms.DialogResult.OK)
+            {
+                String SelectedPath = folderDialog.SelectedPath;
+                this.ModsPath = SelectedPath;
+            }
+
+            List<String> InstalledMods = new List<String>();
+            DirectoryInfo Folder = new DirectoryInfo(this.ModsPath);
+
+            foreach(FileInfo File in Folder.GetFiles())
+            {
+                InstalledMods.Add(File.Name);
+            }
+
+            System.Windows.MessageBox.Show("Located " + InstalledMods.Count + " Mods");
         }
     }
 }
