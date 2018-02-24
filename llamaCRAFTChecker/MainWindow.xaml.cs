@@ -16,6 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.IO;
+using System.Net;
+using Newtonsoft.Json;
+using llamaCRAFTChecker.Models;
 
 namespace llamaCRAFTChecker
 {
@@ -25,6 +28,8 @@ namespace llamaCRAFTChecker
         const ushort numFields = 6;
 
         protected String hostName = "llamatrain.llamatorials.com";
+        protected String ModMapUrl = "http://localhost:8085";
+        public List<Mod> ModMap;
         public String ModsPath;
         protected int port = 25565;
 
@@ -32,6 +37,13 @@ namespace llamaCRAFTChecker
 
         public MainWindow()
         {
+            HttpWebRequest Request = (HttpWebRequest)WebRequest.Create(ModMapUrl);
+
+            var Response = (HttpWebResponse) Request.GetResponse();
+            var ResponseString = new StreamReader(Response.GetResponseStream()).ReadToEnd();
+
+            this.ModMap = JsonConvert.DeserializeObject<List<Mod>>(ResponseString);
+
             InitializeComponent();
             GetServerStatus();
 
@@ -129,6 +141,7 @@ namespace llamaCRAFTChecker
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
             folderDialog.ShowNewFolderButton = false;
+            folderDialog.Description = "Select llamaCRAFT Mods Folder";
             folderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
             DialogResult result = folderDialog.ShowDialog();
 
@@ -136,17 +149,32 @@ namespace llamaCRAFTChecker
             {
                 String SelectedPath = folderDialog.SelectedPath;
                 this.ModsPath = SelectedPath;
+
+                List<String> InstalledMods = new List<String>();
+                DirectoryInfo Folder = new DirectoryInfo(this.ModsPath);
+
+                foreach(FileInfo File in Folder.GetFiles())
+                {
+                    InstalledMods.Add(File.Name);
+                }
+
+                foreach(var Mod in this.ModMap)
+                {
+                    var IsInstalled = InstalledMods.Exists(m => m == Mod.Name);
+
+                    if(!IsInstalled)
+                    {
+                        using (WebClient client = new WebClient())
+                        {
+                            String FilePath = this.ModsPath + "\\" + Mod.Name;
+                            client.DownloadFile(Mod.Url, FilePath);
+                        }
+                    }
+                }
+
+                System.Windows.MessageBox.Show("Located " + InstalledMods.Count + " Mods");
             }
 
-            List<String> InstalledMods = new List<String>();
-            DirectoryInfo Folder = new DirectoryInfo(this.ModsPath);
-
-            foreach(FileInfo File in Folder.GetFiles())
-            {
-                InstalledMods.Add(File.Name);
-            }
-
-            System.Windows.MessageBox.Show("Located " + InstalledMods.Count + " Mods");
         }
     }
 }
