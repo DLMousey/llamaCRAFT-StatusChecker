@@ -20,9 +20,24 @@ namespace llamaCRAFTChecker
 {
     public partial class MainWindow : MetroWindow
     {
+        public String CurrentPage;
+
         public MainWindow()
         {            
             InitializeComponent();
+            this.DataContext = CurrentPage;
+        }
+
+        private void ModsPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.CurrentPage = "Mods";
+            ContentFrame.Navigate(new ModsPage());
+        }
+
+        private void StatusPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.CurrentPage = "Status";
+            ContentFrame.Navigate(new StatusPage());
         }
     }
 }   

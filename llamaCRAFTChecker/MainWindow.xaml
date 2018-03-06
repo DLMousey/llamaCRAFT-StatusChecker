@@ -5,8 +5,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:llamaCRAFTChecker"
         Title="llamaCRAFT Status Checker" Height="400" Width="800" ResizeMode="NoResize">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="Mods" Click="ModsPageButton_Click" />
+            <Button Content="Server Status" Click="StatusPageButton_Click" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <Window.DataContext>
         <local:ServerStatus></local:ServerStatus>
     </Window.DataContext>
-    <Frame Source="StatusPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+    <Frame Source="StatusPage.xaml" NavigationUIVisibility="Hidden" x:Name="ContentFrame"></Frame>
 </Controls:MetroWindow>

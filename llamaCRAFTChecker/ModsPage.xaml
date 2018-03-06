@@ -12,6 +12,7 @@
         <DataGrid AutoGenerateColumns="True"
                   VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch"
+                  IsReadOnly="True"
                   x:Name="ModsDataGrid"
                   ItemsSource="{Binding}" />
     </Grid>

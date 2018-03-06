@@ -42,7 +42,6 @@
                     <TextBlock Text="Maximum Players: " HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Text="{Binding Path=MaximumPlayers, Mode=OneWay}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <Button Content="Check Mods" Margin="100" x:Name="CheckModsButton" Click="CheckModsButton_Click"></Button>
             </StackPanel>
         </DockPanel>
         <DockPanel Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
