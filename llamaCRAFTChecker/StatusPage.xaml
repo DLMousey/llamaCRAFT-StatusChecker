@@ -4,10 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:llamaCRAFTChecker"
+      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="StatusPage">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -34,27 +34,28 @@
                     </Label.Style>
                 </Label>
                 <Label Content="{Binding Path=Motd, Mode=OneWay}" HorizontalAlignment="Center" Margin="8" />
-                <StackPanel Orientation="Horizontal" Margin="8">
+                <StackPanel Orientation="Horizontal" Margin="50, 5">
                     <TextBlock Text="Currently Online: " HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Text="{Binding Path=CurrentPlayers, Mode=OneWay}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="8">
+                <StackPanel Orientation="Horizontal" Margin="50, 5">
                     <TextBlock Text="Maximum Players: " HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Text="{Binding Path=MaximumPlayers, Mode=OneWay}" HorizontalAlignment="Center"/>
                 </StackPanel>
+                <Button Content="Check Mods" Margin="100" x:Name="CheckModsButton" Click="CheckModsButton_Click"></Button>
             </StackPanel>
         </DockPanel>
         <DockPanel Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
             <StatusBar DockPanel.Dock="Bottom">
                 <StatusBarItem HorizontalAlignment="Left">
-                    <TextBlock x:Name="LastCheckedIndicator" HorizontalAlignment="Left">
+                    <TextBlock x:Name="LastCheckedIndicator" HorizontalAlignment="Left" Foreground="Black">
                         <Run Text="Last Checked: " />
                         <Run Text="{Binding Path=LastChecked, Mode=OneWay}" />
                     </TextBlock>
                 </StatusBarItem>
                 <Separator></Separator>
                 <StatusBarItem>
-                    <TextBlock x:Name="NumbeOfChecksIndicator" HorizontalAlignment="Left">
+                    <TextBlock x:Name="NumbeOfChecksIndicator" HorizontalAlignment="Left" Foreground="Black">
                         <Run Text="Number Of Checks: " />
                         <Run Text="{Binding Path=NumberOfChecks, Mode=OneWay}" />
                     </TextBlock>

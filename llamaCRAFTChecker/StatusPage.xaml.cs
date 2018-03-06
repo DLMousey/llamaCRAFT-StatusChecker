@@ -108,5 +108,11 @@ namespace llamaCRAFTChecker
         {
             GetServerStatus();
         }
+
+        private void CheckModsButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService NavService = NavigationService.GetNavigationService(this);
+            NavService.Navigate(new Uri("ModsPage.xaml", UriKind.RelativeOrAbsolute));
+        }
     }
 }

@@ -21,8 +21,8 @@ namespace llamaCRAFTChecker
     public partial class MainWindow : MetroWindow
     {
         public MainWindow()
-        {
+        {            
             InitializeComponent();
         }
     }
-}
+}   

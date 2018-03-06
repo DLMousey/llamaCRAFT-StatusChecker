@@ -4,7 +4,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:llamaCRAFTChecker"
-        Title="MainWindow" Height="350" Width="525">
+        Title="llamaCRAFT Status Checker" Height="400" Width="800" ResizeMode="NoResize">
     <Window.DataContext>
         <local:ServerStatus></local:ServerStatus>
     </Window.DataContext>
