@@ -10,7 +10,7 @@ namespace llamaCRAFTChecker.Models
     {
         public String Name { get; set; }
         public String Description { get; set; }
-        public String FileName { get; set; }
+        public String File_Name { get; set; }
         public String Url { get; set; }
     }
 }

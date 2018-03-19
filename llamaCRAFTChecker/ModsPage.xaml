@@ -9,11 +9,17 @@
       Title="ModsPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+        </Grid.RowDefinitions>
         <DataGrid AutoGenerateColumns="True"
                   VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch"
                   IsReadOnly="True"
                   x:Name="ModsDataGrid"
-                  ItemsSource="{Binding}" />
+                  ItemsSource="{Binding}" 
+                  Grid.Row="0" />
+        <Button x:Name="SyncModsButton" Content="Sync Mods" Grid.Row="1" Click="SyncModsButton_Click"></Button>
     </Grid>
 </Page>

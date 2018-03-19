@@ -2,19 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
+using System.Windows.Forms;
 using llamaCRAFTChecker.Models;
 
 namespace llamaCRAFTChecker
@@ -24,6 +16,7 @@ namespace llamaCRAFTChecker
     /// </summary>
     public partial class ModsPage : Page
     {
+        public string ModsPath;
         public List<Mod> ModMap;
         protected String ModMapUrl = "http://llamacraft.deadlyllama.com/api/mods";
 
@@ -38,6 +31,50 @@ namespace llamaCRAFTChecker
 
             InitializeComponent();
             this.DataContext = ModMap;
+        }
+
+        private void SyncModsButton_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog FolderDialog = new FolderBrowserDialog();
+
+            FolderDialog.ShowNewFolderButton = false;
+            FolderDialog.Description = "Select llamaCRAFT Mods Directory";
+            FolderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
+
+            DialogResult Result = FolderDialog.ShowDialog();
+
+            if(Result == System.Windows.Forms.DialogResult.OK)
+            {
+                String SelectedPath = FolderDialog.SelectedPath;
+                this.ModsPath = SelectedPath;
+
+                List<String> InstalledMods = new List<string>();
+                List<String> MissingMods = new List<string>();
+                DirectoryInfo Folder = new DirectoryInfo(this.ModsPath);
+
+                foreach(FileInfo File in Folder.GetFiles())
+                {
+                    InstalledMods.Add(File.Name);
+                }
+
+                foreach(var Mod in this.ModMap)
+                {
+                    Boolean IsInstalled = InstalledMods.Exists(m => m == Mod.Name);
+
+                    if(!IsInstalled)
+                    {
+                        MissingMods.Add(Mod.Name);
+
+                        using (WebClient Client = new WebClient())
+                        {
+                            String FilePath = this.ModsPath + "\\" + Mod.File_Name;
+                            Client.DownloadFile(Mod.Url, FilePath);
+                        }
+                    }
+                }
+
+                System.Windows.MessageBox.Show("Successfully installed " + MissingMods.Count + " missing mods!");
+            }
         }
     }
 }
